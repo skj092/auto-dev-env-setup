@@ -1,5 +1,6 @@
 # auto-dev-env-setup
 
+```
 #!/bin/bash
 
 # 1. Build Essential
@@ -32,3 +33,4 @@ git clone --depth 1 https://github.com/wbthomason/packer.nvim \
 # nvim --headless -c 'autocmd User PackerComplete quitall' -c 'PackerSync'
 
 echo "Development environment setup completed."
+```
