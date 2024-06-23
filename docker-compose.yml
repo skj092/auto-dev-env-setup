@@ -1,0 +1,19 @@
+version: '3.8'
+
+services:
+  ubuntu-test:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: ubuntu-test
+    container_name: ubuntu-dev-env
+    volumes:
+      - ./setup_script.sh:/home/testuser/setup_script.sh
+    tty: true
+    stdin_open: true
+    command: >
+      bash -c "
+        sudo chown testuser:testuser /home/testuser/setup_script.sh &&
+        sudo chmod +x /home/testuser/setup_script.sh &&
+        /bin/bash
+      "
