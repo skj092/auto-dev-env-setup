@@ -1,19 +1,27 @@
-FROM ubuntu:latest
+FROM ubuntu:22.04
 
+# Prevent interactive prompts
 ENV DEBIAN_FRONTEND=noninteractive
 
-RUN apt-get update && apt-get install -y sudo git
+# Install basic dependencies
+RUN apt-get update && apt-get install -y \
+    curl \
+    git \
+    sudo \
+    && rm -rf /var/lib/apt/lists/*
 
-RUN useradd -m testuser && echo "testuser:testuser" | chpasswd && usermod -aG sudo testuser
+# Create test user
+RUN useradd -m testuser && \
+    echo "testuser ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers
 
-RUN echo 'testuser ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers
+# Copy setup script and set permissions before switching user
+COPY setup.sh /home/testuser/
+RUN chown testuser:testuser /home/testuser/setup.sh && \
+    chmod +x /home/testuser/setup.sh
 
+# Switch to test user
 USER testuser
-
 WORKDIR /home/testuser
 
-COPY setup_script.sh .
-
-RUN sudo chmod +x setup_script.sh
-
-CMD ["/bin/bash"]
+# For testing the script
+CMD ["./setup.sh"]
