@@ -1,5 +1,3 @@
-# Build the image
+docker rm -f dev-setup
 docker build -t setup-test .
-
-# Run the container
-docker run -it setup-test
+docker run -it --name dev-setup setup-test /bin/bash
