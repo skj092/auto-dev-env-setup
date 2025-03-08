@@ -25,5 +25,7 @@ RUN chown testuser:testuser /home/testuser/setup.sh && \
 USER testuser
 WORKDIR /home/testuser
 
+RUN /bin/bash ./setup.sh
+
 # For testing the script
-CMD ["./setup.sh"]
+# CMD ["bash", "./setup.sh"]

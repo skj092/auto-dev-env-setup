@@ -148,6 +148,7 @@ else
     fi
 fi
 
+
 # 5. Install tmux
 if ! command -v tmux &> /dev/null; then
     echo "Installing tmux..."
@@ -215,10 +216,11 @@ else
     echo "✅ Packer is already installed"
 fi
 
-# Install Neovim plugins
-echo "Installing Neovim plugins..."
-nvim --headless -c 'autocmd User PackerComplete quitall' -c 'PackerSync'
-check_status "Neovim plugins installation"
+echo 'export PATH="$PATH:/opt/nvim-linux-x86_64/bin"' >> ~/.bashrc
+source ~/.bashrc
+chsh -s $(which zsh)
+rm ~/.zshrc
 
-echo "🎉 Setup completed successfully!"
-echo "Please restart your terminal or run 'source ~/.zshrc' to apply changes."
+# Create symbolic links to the dotfiles
+ln -sf ~/.dotfiles/zsh/.zshrc ~/.zshrc
+ln -sf ~/.dotfiles/zsh/.zsh_profile ~/.zsh_profile
