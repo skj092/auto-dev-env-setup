@@ -217,10 +217,10 @@ else
 fi
 
 echo 'export PATH="$PATH:/opt/nvim-linux-x86_64/bin"' >> ~/.bashrc
-source ~/.bashrc
-chsh -s $(which zsh)
-rm ~/.zshrc
-
 # Create symbolic links to the dotfiles
+rm ~/.zshrc
 ln -sf ~/.dotfiles/zsh/.zshrc ~/.zshrc
 ln -sf ~/.dotfiles/zsh/.zsh_profile ~/.zsh_profile
+source ~/.bashrc
+# chsh -s $(which zsh)
+
